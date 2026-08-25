@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "../theme/ThemeToggle";
+import { CgMenuHotdog } from "react-icons/cg";
+import { IoClose } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
 export default function Header(){
   const [menuOpen, setMenuOpen] = useState(false);
   const navigation = [
@@ -16,7 +19,6 @@ export default function Header(){
   return (
     <nav className="fixed top-0 z-20 w-full border-b border-border bg-background">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4">
-
         {/* Logo */}
         <Link
           href="/"
@@ -37,22 +39,8 @@ export default function Header(){
           {/* Search - Desktop */}
           <div className="relative hidden md:block">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg
-                className="h-4 w-4 text-muted"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeWidth="2"
-                  d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                />
-              </svg>
+              <CiSearch  className="h-4 w-4 text-muted" />              
             </div>
-
             <input
               type="search"
               placeholder="Search"
@@ -73,33 +61,9 @@ export default function Header(){
             aria-label="Toggle navigation"
           >
             {menuOpen ? (
-              <svg
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
+             <IoClose className="h-6 w-6" />
             ) : (
-              <svg
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              <CgMenuHotdog className="h-6 w-6" />
             )}
           </button>
         </div>
@@ -129,21 +93,8 @@ export default function Header(){
             <li className="mt-2 md:hidden">
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <svg
-                    className="h-4 w-4 text-muted"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                    />
-                  </svg>
+                   <CiSearch  className="h-4 w-4 text-muted" />
                 </div>
-
                 <input
                   type="search"
                   placeholder="Search news..."

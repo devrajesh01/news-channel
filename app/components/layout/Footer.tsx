@@ -1,4 +1,6 @@
+"use client"
 export default function Footer() {
+  const year = new Date();
   return (
     <footer className="mt-20 border-t border-[var(--border)]">
       <div className="mx-auto max-w-7xl px-5 py-10">
@@ -14,7 +16,7 @@ export default function Footer() {
           </div>
 
           <p className="text-sm text-[var(--muted)]">
-            © 2026 News Channel. All rights reserved.
+            © {year.getFullYear()} News Channel. All rights reserved.
           </p>
         </div>
       </div>
