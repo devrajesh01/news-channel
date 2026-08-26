@@ -30,7 +30,7 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={toggleTheme}                                               
       aria-label="Toggle theme"
       className="flex h-9 w-9 items-center justify-center cursor-pointer text-white dark:text-red-500  rounded-full border border-[var(--border)] transition hover:bg-[var(--surface)]"
     >

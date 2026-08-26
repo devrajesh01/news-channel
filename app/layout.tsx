@@ -15,20 +15,38 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "News Channel",
+  title: {
+    default: "News Channel",
+    template: "%s | News Channel"
+
+  },
   description: "Latest news and stories",
+  metadataBase: new URL("https://example.com"),
+  icons:{
+    icon: "/images/favicon.png"
+  },
+  openGraph: {
+    title: "News Channel",
+    description: "Latest news and stories",
+    url: "https://example.com/",
+    siteName: "News Channel",
+    images: [
+      {
+        url: "/images/og-image.avif",
+        width: 1200,
+        height: 630,
+        alt: "News Channel",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${newsreader.variable}`}
-      >
+      <body className={`${inter.variable} ${newsreader.variable}`}>
         <Header />
         <main>{children}</main>
         <Footer />

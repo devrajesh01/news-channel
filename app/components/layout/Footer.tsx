@@ -9,12 +9,10 @@ export default function Footer() {
             <h2 className="font-[var(--font-newsreader)] text-2xl font-bold">
               NEWS<span className="text-[var(--accent)]">.</span>
             </h2>
-
             <p className="mt-2 max-w-md text-sm text-[var(--muted)]">
               Independent journalism, breaking news and stories that matter.
             </p>
           </div>
-
           <p className="text-sm text-[var(--muted)]">
             © {year.getFullYear()} News Channel. All rights reserved.
           </p>
