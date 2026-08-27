@@ -1,101 +1,137 @@
 "use client";
-import { useState } from "react";
+
 import Link from "next/link";
-import ThemeToggle from "../theme/ThemeToggle";
+import { useState } from "react";
+import { CiSearch } from "react-icons/ci";
 import { CgMenuHotdog } from "react-icons/cg";
 import { IoClose } from "react-icons/io5";
-import { CiSearch } from "react-icons/ci";
+
+import ThemeToggle from "../theme/ThemeToggle";
 import BreakingNews from "./BreakingNews";
-import Adds from "./Adds";
-export default function Header() {
+import Advertisement from "./Advertisement";
+
+const navigation = [
+  { label: "Home", href: "/" },
+  { label: "Politics", href: "/category/politics" },
+  { label: "World", href: "/category/world" },
+  { label: "Technology", href: "/category/technology" },
+  { label: "Blog", href: "/blog" },
+];
+
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigation = [
-    { label: "Home", href: "/" },
-    { label: "Politics", href: "/category/politics" },
-    { label: "World", href: "/category/world" },
-    { label: "Technology", href: "/category/technology" },
-    { label: "Blog", href: "/blog" },
-  ];
-
   return (
-    <>     
-      <nav className="fixed top-0 z-20 w-full border-b border-border bg-background">
-         <BreakingNews />
-         <Adds/>
-        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4">
-          {/* Logo */}         
+    <header className="border-b border-border bg-background">
+      <BreakingNews />
+      <div className="site-container">
+        {/* Breaking News */}
 
-          {/* Right side */}
-          <div className="flex items-center gap-2 md:order-2">
-            {/* Search - Desktop */}
-            <div className="relative hidden md:block">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <CiSearch className="h-4 w-4 text-muted" />
-              </div>
-              <input
-                type="search"
-                placeholder="Search"
-                className="w-44 rounded-full border border-border bg-surface py-2 pl-9 pr-4 text-sm text-foreground outline-none placeholder:text-muted focus:border-accent"
-              />
-            </div>
-
-            {/* Theme Toggle */}
-            <ThemeToggle />
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground md:hidden"
-              aria-controls="navbar-menu"
-              aria-expanded={menuOpen}
-              aria-label="Toggle navigation"
-            >
-              {menuOpen ? (
-                <IoClose className="h-6 w-6" />
-              ) : (
-                <CgMenuHotdog className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-
-          {/* Navigation */}
-          <div
-            id="navbar-menu"
-            className={`${
-              menuOpen ? "block" : "hidden"
-            } w-full md:order-1 md:block md:w-auto`}
+        {/* Logo + Advertisement */}
+        <div className="w-full flex min-h-24  items-center justify-between ">
+          {/* Logo */}
+          <Link
+            href="/"
+            className="flex shrink-0 items-center gap-3"
+            aria-label="News Channel home"
           >
-            <ul className="mt-4 flex flex-col gap-1 rounded-lg border border-border bg-surface p-3 text-sm font-medium md:mt-0 md:flex-row md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0">
-              {navigation.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block rounded-md px-3 py-2 text-foreground transition hover:bg-surface-muted hover:text-accent md:px-0 md:py-1 md:hover:bg-transparent"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-
-              {/* Search - Mobile */}
-              <li className="mt-2 md:hidden">
-                <div className="relative">
-                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <CiSearch className="h-4 w-4 text-muted" />
-                  </div>
-                  <input
-                    type="search"
-                    placeholder="Search news..."
-                    className="w-full rounded-full border border-border bg-background py-2.5 pl-9 pr-4 text-sm text-foreground outline-none placeholder:text-muted focus:border-accent"
-                  />
-                </div>
-              </li>
-            </ul>
-          </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
+              N
+            </div>
+            <span className="font-editorial text-2xl font-bold tracking-tight">
+              NEWS<span className="text-accent">.</span>
+            </span>
+          </Link>
+          <Advertisement />
         </div>
-      </nav>
-    </>
+        {/* Main Navigation */}
+        <div className="border-t border-border">
+          <div className="flex w-full  items-center justify-between  py-3">
+            {/* Desktop Navigation */}
+            <nav aria-label="Main navigation" className="hidden md:block ">
+              <ul className="flex items-center gap-8">
+                {navigation.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Right Controls */}
+            <div className="ml-auto flex items-center gap-2">
+              {/* Search */}
+              <div className="relative hidden md:block">
+                <CiSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+
+                <input
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search news"
+                  className="h-9 w-44 rounded-full border border-border bg-surface pl-9 pr-4 text-sm text-foreground outline-none transition focus:border-accent"
+                />
+              </div>
+
+              <ThemeToggle />
+
+              {/* Mobile menu */}
+              <button
+                type="button"
+                onClick={() => setMenuOpen((current) => !current)}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition hover:border-accent hover:text-accent md:hidden"
+                aria-controls="mobile-navigation"
+                aria-expanded={menuOpen}
+                aria-label={
+                  menuOpen ? "Close navigation menu" : "Open navigation menu"
+                }
+              >
+                {menuOpen ? (
+                  <IoClose className="h-5 w-5" />
+                ) : (
+                  <CgMenuHotdog className="h-5 w-5" />
+                )}
+              </button>
+            </div>
+          </div>
+          {/* Mobile Navigation */}
+          {menuOpen && (
+            <nav
+              id="mobile-navigation"
+              aria-label="Mobile navigation"
+              className="border-t border-border py-4 md:hidden"
+            >
+              <ul className="flex flex-col gap-1">
+                {navigation.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:text-accent"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {/* Mobile Search */}
+              <div className="relative mt-4">
+                <CiSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+                <input
+                  type="search"
+                  placeholder="Search news..."
+                  aria-label="Search news"
+                  className="h-10 w-full rounded-full border border-border bg-surface pl-9 pr-4 text-sm text-foreground outline-none transition focus:border-accent"
+                />
+              </div>
+            </nav>
+          )}
+        </div>
+      </div>
+    </header>
   );
-}
+};
+export default Header;

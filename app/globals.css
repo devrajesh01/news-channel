@@ -14,6 +14,7 @@
 
   /* Borders */
   --border: #e5e5e5;
+  --border-brand: #f15b24bb;
 
   /* Secondary text */
   --muted: #777777;
@@ -35,6 +36,7 @@
   --surface-muted: #222222;
 
   --border: #303030;
+  --border-brand: #f15b24bb;
 
   --muted: #a3a3a3;
 
@@ -104,4 +106,10 @@ a {
 ::selection {
   background: var(--accent);
   color: #ffffff;
+}
+.site-container {
+  width: 100%;
+  max-width: 1380px;
+  margin-inline: auto;
+  padding-inline: 1rem;
 }
