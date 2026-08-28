@@ -17,8 +17,8 @@ const nextConfig: NextConfig = {
         : []),
       {
         protocol: "https" as const,
-        hostname: "yourdomain.com",
-        pathname: "/wp-content/uploads/**",
+        hostname: "relaxed-tereshkova.74-208-156-247.plesk.page",
+        pathname: "/rias-apartment/wp-content/uploads/**",
       },
     ],
   },
