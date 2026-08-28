@@ -13,9 +13,9 @@ import Image from "next/image";
 
 const navigation = [
   { label: "Home", href: "/" },
-  { label: "Politics", href: "/category/politics" },
-  { label: "World", href: "/category/world" },
-  { label: "Technology", href: "/category/technology" },
+  { label: "Politics", href: "!#" },
+  { label: "World", href: "!#" },
+  { label: "Technology", href: "!#" },
   { label: "Blog", href: "/blog" },
 ];
 
