@@ -23,7 +23,7 @@ export type WPPost = {
   date: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  content: { rendered: string };
+  content: { rendered: string }; // ← must be present here too
   slug: string;
   categories: number[];
   _embedded?: {

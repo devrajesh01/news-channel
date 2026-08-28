@@ -16,6 +16,8 @@ const BreakingNews = () => {
   };
 
   const previousNews = () => {
+
+    
     setActiveIndex(
       (current) => (current - 1 + breakingNews.length) % breakingNews.length,
     );

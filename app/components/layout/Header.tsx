@@ -9,6 +9,7 @@ import { IoClose } from "react-icons/io5";
 import ThemeToggle from "../theme/ThemeToggle";
 import BreakingNews from "./BreakingNews";
 import Advertisement from "./Advertisement";
+import Image from "next/image";
 
 const navigation = [
   { label: "Home", href: "/" },
@@ -34,12 +35,13 @@ const Header = () => {
             className="flex shrink-0 items-center gap-3"
             aria-label="News Channel home"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
-              N
-            </div>
-            <span className="font-editorial text-2xl font-bold tracking-tight">
-              NEWS<span className="text-accent">.</span>
-            </span>
+           <Image 
+            src="/images/brand-logo.png" 
+            alt="NewsWala Logo" 
+            width={180} 
+            height={45} 
+            priority
+          />
           </Link>
           <Advertisement />
         </div>

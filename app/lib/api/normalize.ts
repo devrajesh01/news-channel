@@ -6,6 +6,7 @@ export type NormalizedPost = {
   slug: string;
   date: string;
   excerpt: string;
+  content: string; // full HTML — used by detail page, ignored by list/card views
   image: string;
   category: string;
   comments?: number;
@@ -18,6 +19,7 @@ export function normalizePost(post: WPPost): NormalizedPost {
     slug: post.slug,
     date: post.date,
     excerpt: stripHtml(post.excerpt.rendered),
+    content: post.content.rendered,
     image:
       post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ??
       "/images/placeholder.png",
