@@ -10,6 +10,7 @@ import ThemeToggle from "../theme/ThemeToggle";
 import BreakingNews from "./BreakingNews";
 import Advertisement from "./Advertisement";
 import Image from "next/image";
+import { Category } from "@/app/types/category";
 
 const navigation = [
   { label: "Home", href: "/" },
@@ -18,8 +19,11 @@ const navigation = [
   { label: "Technology", href: "!#" },
   { label: "Blog", href: "/blog" },
 ];
+// type HeaderProps = {
+//   categories: Category[];
+// };
 
-const Header = () => {
+const Header =  () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <header className="border-b border-border bg-background">
@@ -52,9 +56,9 @@ const Header = () => {
             <nav aria-label="Main navigation" className="hidden md:block ">
               <ul className="flex items-center gap-8">
                 {navigation.map((item) => (
-                  <li key={item.href}>
+                  <li key={item.label.toLocaleLowerCase()}>
                     <Link
-                      href={item.href}
+                      href={item.label.toLocaleLowerCase()}
                       className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
                     >
                       {item.label}

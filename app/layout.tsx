@@ -3,6 +3,7 @@ import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import { getCategories } from "./lib/api/posts";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -39,13 +40,13 @@ export const metadata: Metadata = {
     ],
   },
 };
-export default function RootLayout({
+export default  function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) { 
   return (
     <html lang="en">
       <body className={`${inter.variable} ${newsreader.variable}`}>
-        <Header />
+       <Header />
         <main>{children}</main>
         <Footer />
       </body>

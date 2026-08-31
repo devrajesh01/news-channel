@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FaRegCalendar } from "react-icons/fa";
 import NewsMeta from "./NewsMeta";
 import { getPosts } from "@/app/lib/api/posts";
+import { formatDate } from "@/app/lib/utils/formatDate";
 
 const Hero = async () => {
   const posts = await getPosts();
@@ -75,7 +76,7 @@ const Hero = async () => {
                     </span>
                     <div className="flex items-center gap-1 text-[11px] text-gray-500">
                       <FaRegCalendar className="text-gray-400" />
-                      <span>{post.date}</span>
+                      <span>{formatDate(post.date)}</span>
                     </div>
                   </div>
                   <Link href={`/news/${post.slug}`}>
