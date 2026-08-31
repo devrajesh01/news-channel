@@ -3,6 +3,8 @@ import Image from "next/image";
 import { FaRegCalendar } from "react-icons/fa";
 import { getPostBySlug } from "@/app/lib/api/posts";
 import type { Metadata } from "next";
+import { rewriteContentImages } from "@/app/lib/utils/rewriteContentImages";
+
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -77,7 +79,7 @@ export default async function NewsDetailPage({ params }: Props) {
       {/* Full content — rendered from WordPress HTML */}
       <div
         className="prose prose-lg mt-8 max-w-none text-gray-700 [&_img]:h-auto [&_img]:w-full [&_img]:rounded-md [&_figure]:my-6"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: rewriteContentImages(post.content) }}
       />
     </article>
   );
