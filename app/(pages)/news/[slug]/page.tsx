@@ -76,7 +76,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
       {/* Full content — rendered from WordPress HTML */}
       <div
-        className="prose prose-lg mt-8 max-w-none text-gray-700"
+        className="prose prose-lg mt-8 max-w-none text-gray-700 [&_img]:h-auto [&_img]:w-full [&_img]:rounded-md [&_figure]:my-6"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
     </article>

@@ -6,10 +6,9 @@ import { getPosts } from "@/app/lib/api/posts";
 import { formatDate } from "@/app/lib/utils/formatDate";
 
 const Hero = async () => {
-  const posts = await getPosts();
+  const posts = await getPosts({ perPage: 5 });
   const featuredPost = posts[0];
   const smallPosts = posts.slice(1);
-
   return (
     <section className="w-full py-10">
       <div className="site-container mx-auto">
@@ -30,11 +29,16 @@ const Hero = async () => {
             </div>
 
             <div className="mt-5">
-              <div className="flex items-center gap-3">
-                <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
-                  {featuredPost.category}
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center  gap-3">
+                  <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+                    {featuredPost.category}
+                  </span>
+                  <NewsMeta news={featuredPost} />
+                </div>
+                <span className=" text-xs font-semibold text-muted">
+                  Author: {featuredPost.author}
                 </span>
-                <NewsMeta news={featuredPost} />
               </div>
 
               <Link href={`/news/${featuredPost.slug}`}>

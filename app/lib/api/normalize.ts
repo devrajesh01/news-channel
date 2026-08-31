@@ -9,6 +9,7 @@ export type NormalizedPost = {
   content: string; // full HTML — used by detail page, ignored by list/card views
   image: string;
   category: string;
+  author: string;
   comments?: number;
 };
 
@@ -17,13 +18,12 @@ export function normalizePost(post: WPPost): NormalizedPost {
     id: post.id,
     title: post.title.rendered,
     slug: post.slug,
-    date: post.date,
+    date: post.date,    
     excerpt: stripHtml(post.excerpt.rendered),
-    content: post.content.rendered,
-    image:
-      post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ??
-      "/images/placeholder.png",
+    content: post.content?.rendered ?? "",
+    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? "/images/placeholder.png",
     category: post._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "Uncategorized",
+    author: post._embedded?.author?.[0]?.name ?? "Unknown Author",    
   };
 }
 

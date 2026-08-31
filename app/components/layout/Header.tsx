@@ -6,8 +6,7 @@ import Navbar from "./Navbar";
 import { getCategories } from "@/app/lib/api/posts";
 
 const Header = async () => {
-  const categories = await getCategories();
-  console.log(categories)
+  const categories = await getCategories(); 
   return (
     <header className="border-b border-border bg-background">
       <BreakingNews />

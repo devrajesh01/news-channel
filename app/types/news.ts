@@ -29,5 +29,6 @@ export type WPPost = {
   _embedded?: {
     "wp:featuredmedia"?: { source_url: string }[];
     "wp:term"?: { id: number; name: string }[][];
+     author?: { id: number; name: string }[]; // 
   };
 };
