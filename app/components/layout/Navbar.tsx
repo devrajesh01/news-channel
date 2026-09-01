@@ -30,7 +30,7 @@ const Navbar = ({ categories }: NavbarProps) => {
                 Home
               </Link>
             </li>
-            {categories.map((category) => (
+            {categories.slice(0,6).map((category) => (
               <li key={category.id}>
                 <Link
                   href={`/category/${category.slug}`}

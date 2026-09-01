@@ -14,16 +14,17 @@ const Header = async () => {
         <div className="w-full flex min-h-24 items-center justify-between">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-3"
+            className="flex shrink-0 items-center  gap-3"
             aria-label="News Channel home"
           >
             <Image
-              src="/images/brand-logo.png"
-              alt="NewsWala Logo"
-              width={180}
-              height={45}
-              priority
-            />
+            src="/images/brand-logo.png"
+            alt="NewsWala Logo"
+            width={180}
+            height={45} 
+            style={{ width: "auto", height: "auto" }} 
+            priority
+          />
           </Link>
           <Advertisement />
         </div>

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPostsByCategorySlug } from "@/app/lib/api/posts";
+import NewsCard from "@/app/components/news/NewsCard";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -25,10 +26,7 @@ const CategoryPage = async ({ params }: Props) => {
       <h1 className="text-2xl font-bold capitalize">{slug} News</h1>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
-          <article key={post.id}>
-            <h2 className="font-semibold">{post.title}</h2>
-            <p className="mt-2 text-sm text-gray-500">{post.excerpt}</p>
-          </article>
+          <NewsCard post={post} key={post.id} />
         ))}
       </div>
     </div>

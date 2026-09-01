@@ -11,6 +11,7 @@ const Advertisement = () => {
           fill
           sizes="728px"
           className="object-cover"
+          loading="eager"          
         />
       </Link>
     </div>

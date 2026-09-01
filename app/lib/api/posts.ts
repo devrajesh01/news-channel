@@ -7,6 +7,10 @@ type GetPostsOptions = {
   page?: number;
   perPage?: number;
 };
+type GetCategoriesOptions = {
+  per_page?: number;  
+};
+
 
 export const getPosts = async ({
   page = 1,
@@ -34,13 +38,15 @@ export const getPostBySlug = cache(async (
   return posts[0] ? normalizePost(posts[0]) : null; 
 });
 
-export const getCategories = async (): Promise<Category[]> => {
-  return wpFetch<Category[]>("/categories", {
-    params: { per_page: 50, hide_empty: true }, 
-    revalidate: 86400,
-    tags: ["categories"],
-  });
-};
+export const getCategories = cache(
+  async ({ per_page = 20 }: GetCategoriesOptions = {}): Promise<Category[]> => {
+    return wpFetch<Category[]>("/categories", {
+      params: { per_page, hide_empty: true },
+      revalidate: 86400,
+      tags: ["categories"],
+    });
+  }
+);
 
 export const getPostsByCategorySlug = async (
   categorySlug: string,
