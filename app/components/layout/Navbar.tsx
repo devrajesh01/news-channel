@@ -5,10 +5,11 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { CgMenuHotdog } from "react-icons/cg";
 import { IoClose } from "react-icons/io5";
+import { TfiMenuAlt } from "react-icons/tfi";
+import { usePathname } from "next/navigation";
 
 import ThemeToggle from "../theme/ThemeToggle";
 import { Category } from "@/app/types/category";
-import { CgMenuGridR } from "react-icons/cg";
 
 type NavbarProps = {
   categories: Category[];
@@ -16,39 +17,51 @@ type NavbarProps = {
 
 const Navbar = ({ categories }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isLinkActive = (href: string) => pathname === href;
+
+  const linkTextClass = (href: string) =>
+    `text-sm font-semibold transition-colors hover:text-accent ${
+      isLinkActive(href) ? "!text-accent" : "text-foreground"
+    }`;
+
+  const liClass = (href: string) =>
+    `flex h-full items-center border-t-2 px-3 transition-colors ${
+      isLinkActive(href) ? "border-accent bg-[var(--background)]" : "border-transparent"
+    }`;
 
   return (
-    <div className=" bg-[var(--background-muted)] ">
-      <div className="flex w-full items-center justify-between py-3">
+    <div className="bg-[var(--background-muted)]">
+      <div className="flex h-12 w-full items-center justify-between">
         {/* Desktop Navigation */}
-        <nav aria-label="Main navigation" className="hidden md:block">
-          <ul className="flex items-center gap-8">
-            <li className="bg-[var(--background-muted)]" >
+        <nav aria-label="Main navigation" className="hidden h-full md:block">
+          <ul className="flex h-full items-center gap-0">
+            <li className="flex h-full items-center bg-[var(--foreground)] px-3">
               <Link
                 href="/"
                 className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
               >
-                <CgMenuGridR/>
+                <TfiMenuAlt className="text-2xl text-surface" />
               </Link>
             </li>
-            <li>
-              <Link
-                href="/"
-                className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
-              >
+
+            <li className={liClass("/")}>
+              <Link href="/" className={linkTextClass("/")}>
                 Home
               </Link>
             </li>
-            {categories.slice(0,6).map((category) => (
-              <li key={category.id}>
-                <Link
-                  href={`/category/${category.slug}`}
-                  className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
+
+            {categories.slice(0, 6).map((category) => {
+              const href = `/category/${category.slug}`;
+              return (
+                <li key={category.id} className={liClass(href)}>
+                  <Link href={href} className={linkTextClass(href)}>
+                    {category.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -90,27 +103,30 @@ const Navbar = ({ categories }: NavbarProps) => {
           aria-label="Mobile navigation"
           className="border-t border-border py-4 md:hidden"
         >
-          <ul className="flex flex-col gap-1">            
+          <ul className="flex flex-col gap-1">
             <li>
               <Link
                 href="/"
                 onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:text-accent"
+                className={`block px-3 py-2.5 ${linkTextClass("/")}`}
               >
                 Home
               </Link>
             </li>
-            {categories.map((category) => (
-              <li key={category.id}>
-                <Link
-                  href={`/category/${category.slug}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="block px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted hover:text-accent"
-                >
-                  {category.name}
-                </Link>
-              </li>
-            ))}
+            {categories.map((category) => {
+              const href = `/category/${category.slug}`;
+              return (
+                <li key={category.id}>
+                  <Link
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block px-3 py-2.5 ${linkTextClass(href)}`}
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="relative mt-4">
