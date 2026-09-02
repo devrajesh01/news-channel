@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { NormalizedPost } from "@/app/lib/api/normalize";
 import NewsCard from "../news/NewsCard";
 import useEmblaCarousel from "embla-carousel-react";
@@ -11,26 +11,18 @@ type RecommendedProps = {
 };
 
 const Recommended = ({ posts }: RecommendedProps) => {
-  console.log(posts)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     axis: "y",
-    align: "start",
     loop: true,
+    align: "start",
     slidesToScroll: 1,
-    
+    containScroll: false, 
+    watchSlides: true,
+    watchResize: true,
   });
 
-  const scrollPrev = useCallback(() => {
-  console.log("emblaApi exists?", !!emblaApi);
-  console.log("can scroll prev?", emblaApi?.canScrollPrev());
-  emblaApi?.scrollPrev();
-}, [emblaApi]);
-
-const scrollNext = useCallback(() => {
-  console.log("emblaApi exists?", !!emblaApi);
-  console.log("can scroll next?", emblaApi?.canScrollNext());
-  emblaApi?.scrollNext();
-}, [emblaApi]);
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   if (posts.length === 0) return null;
 
@@ -60,10 +52,10 @@ const scrollNext = useCallback(() => {
         </div>
       </div>
 
-      <div className="h-[280px] overflow-hidden" ref={emblaRef}>
-        <div className="flex flex-col -mb-5">
+      <div className="h-[400px] overflow-hidden" ref={emblaRef}>
+        <div className="flex flex-col">
           {posts.slice(0, 10).map((post) => (
-            <div className="mb-5 shrink-0" key={post.id}>
+            <div className="shrink-0 pb-5" key={post.id}>
               <NewsCard post={post} variant="horizontal" />
             </div>
           ))}

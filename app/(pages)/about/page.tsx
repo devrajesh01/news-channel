@@ -1,9 +1,16 @@
-import React from 'react'
+import Recommended from "@/app/components/home/Recommended";
+import { getPosts } from "@/app/lib/api/posts";
+import { notFound } from "next/navigation";
+import React from "react";
 
-const page = () => {
+const page = async () => {
+  const posts = await getPosts();
+  if (posts.length === 0) return notFound();
   return (
-    <div>page</div>
-  )
-}
+    <div className="flex">
+      <Recommended posts={posts} />
+    </div>
+  );
+};
 
-export default page
+export default page;

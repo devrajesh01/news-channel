@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 
 import ThemeToggle from "../theme/ThemeToggle";
 import { Category } from "@/app/types/category";
+import { CgMenuGridR } from "react-icons/cg";
 
 type NavbarProps = {
   categories: Category[];
@@ -17,11 +18,19 @@ const Navbar = ({ categories }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="border-t border-border">
+    <div className=" bg-[var(--background-muted)] ">
       <div className="flex w-full items-center justify-between py-3">
         {/* Desktop Navigation */}
         <nav aria-label="Main navigation" className="hidden md:block">
           <ul className="flex items-center gap-8">
+            <li className="bg-[var(--background-muted)]" >
+              <Link
+                href="/"
+                className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
+              >
+                <CgMenuGridR/>
+              </Link>
+            </li>
             <li>
               <Link
                 href="/"
@@ -81,7 +90,7 @@ const Navbar = ({ categories }: NavbarProps) => {
           aria-label="Mobile navigation"
           className="border-t border-border py-4 md:hidden"
         >
-          <ul className="flex flex-col gap-1">
+          <ul className="flex flex-col gap-1">            
             <li>
               <Link
                 href="/"

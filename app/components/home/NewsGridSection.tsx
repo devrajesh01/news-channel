@@ -9,7 +9,7 @@ const NewsGridSection = async () => {
   ]);
 
   return (
-    <section className="w-full bg-[var(--surface)]/40 py-10">
+    <section className="w-full  py-10 bg-[var(--background-muted)]  ">
       <div className="site-container flex flex-col gap-10 lg:flex-row">
         <GlobalNews posts={globalPosts} />
         <Recommended posts={recommendedPosts} />

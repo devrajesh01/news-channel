@@ -21,14 +21,14 @@ export const metadata: Metadata = {
     template: "%s | NewsWala"
   },
   description: "NewsWala is your fast-track digital news platform, delivering real-time, unbiased, and easy-to-digest coverage of current events, technology, trends, and public stories.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://news-channel-phi.vercel.app"),
   icons:{
     icon: "/images/favicon.png"
   },
   openGraph: {
     title: "NewsWala",
     description: "NewsWala is your fast-track digital news platform, delivering real-time, unbiased, and easy-to-digest coverage of current events, technology, trends, and public stories.",
-    url: "https://example.com/",
+    url: "https://news-channel-phi.vercel.app",
     siteName: "NewsWala",
     images: [
       {
