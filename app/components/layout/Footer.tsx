@@ -57,7 +57,7 @@ export default async function Footer() {
               Categories
             </h3>
             <ul className="mt-4 space-y-2.5">
-              {categories.slice(0, 6).map((category) => (
+              {categories.slice(0, 5).map((category) => (
                 <li key={category.id}>
                   <Link
                     href={`/category/${category.slug}`}

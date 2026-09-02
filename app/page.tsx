@@ -1,14 +1,15 @@
 import Hero from "./components/home/Hero";
 import Popular from "./components/home/Popular";
+import NewsGridSection from "./components/home/NewsGridSection";
 import { getPosts } from "./lib/api/posts";
 
-export default async function Home () {
-  const posts = await getPosts()
-  if(!posts) return null
+export default async function Home() {
+  const popularPosts = await getPosts({ perPage: 10 });
   return (
     <>
       <Hero />
-      <Popular posts={posts} />
+      {popularPosts.length > 0 && <Popular posts={popularPosts} />}
+      <NewsGridSection />
     </>
   );
 }

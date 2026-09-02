@@ -4,7 +4,6 @@ import { FaRegCalendar } from "react-icons/fa";
 import NewsMeta from "./NewsMeta";
 import { getPosts } from "@/app/lib/api/posts";
 import { formatDate } from "@/app/lib/utils/formatDate";
-
 const Hero = async () => {
   const posts = await getPosts({ perPage: 5 });
   const featuredPost = posts[0];

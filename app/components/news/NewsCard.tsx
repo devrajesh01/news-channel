@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaRegCalendar, FaRegComment } from "react-icons/fa";
 import { NormalizedPost } from "@/app/lib/api/normalize";
+import { formatDate } from "@/app/lib/utils/formatDate";
 
 type NewsCardProps = {
   post: NormalizedPost;
@@ -16,7 +17,7 @@ export default function NewsCard({
 }: NewsCardProps) {
   if (variant === "horizontal") {
     return (
-      <article className="group flex gap-4">
+      <article className="group flex gap-4 w-[450px]">
         <Link
           href={`/news/${post.slug}`}
           className="relative h-24 w-32 shrink-0 overflow-hidden rounded-md"
@@ -40,7 +41,7 @@ export default function NewsCard({
           </Link>
           <div className="mt-1.5 flex items-center gap-1 text-xs text-[var(--muted)]">
             <FaRegCalendar className="h-3 w-3" />
-            <span>{post.date}</span>
+            <span>{formatDate(post.date)}</span>
           </div>
         </div>
       </article>
