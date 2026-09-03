@@ -18,6 +18,7 @@ const Header = async () => {
             aria-label="News Channel home"
           >
             <Image
+            
             src="/images/brand-logo.png"
             alt="NewsWala Logo"
             width={180}

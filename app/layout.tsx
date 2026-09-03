@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { getCategories } from "./lib/api/posts";
+import FloatingThemeToggle from "./components/theme/FloatingThemeToggle";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -49,6 +50,7 @@ export default  function RootLayout({
        <Header />
         <main>{children}</main>
         <Footer />
+        <FloatingThemeToggle/>
       </body>
     </html>
   );

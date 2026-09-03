@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { CgMenuHotdog } from "react-icons/cg";
-import { IoClose } from "react-icons/io5";
+import { TbWorldShare } from "react-icons/tb";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { usePathname } from "next/navigation";
-
-import ThemeToggle from "../theme/ThemeToggle";
 import { Category } from "@/app/types/category";
+import { SearchTrigger } from "../search";
+import LinkButton from "@/app/lib/utils/LinkButton";
+
 
 type NavbarProps = {
   categories: Category[];
@@ -64,35 +64,12 @@ const Navbar = ({ categories }: NavbarProps) => {
             })}
           </ul>
         </nav>
-
+       
         {/* Right Controls */}
-        <div className="ml-auto flex items-center gap-2">
-          <div className="relative hidden md:block">
-            <CiSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
-            <input
-              type="search"
-              placeholder="Search"
-              aria-label="Search news"
-              className="h-9 w-44 rounded-full border border-border bg-surface pl-9 pr-4 text-sm text-foreground outline-none transition focus:border-accent"
-            />
-          </div>
-
-          <ThemeToggle />
-
-          <button
-            type="button"
-            onClick={() => setMenuOpen((current) => !current)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition hover:border-accent hover:text-accent md:hidden"
-            aria-controls="mobile-navigation"
-            aria-expanded={menuOpen}
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          >
-            {menuOpen ? (
-              <IoClose className="h-5 w-5" />
-            ) : (
-              <CgMenuHotdog className="h-5 w-5" />
-            )}
-          </button>
+        <div className="ml-auto h-full flex items-center  gap-5">
+           <SearchTrigger/> 
+          <LinkButton className="group" href={"/"}> View All <TbWorldShare className="ml-2 !text-[24px] group-hover:translate-y-0" /></LinkButton>         
+         
         </div>
       </div>
 
@@ -143,5 +120,4 @@ const Navbar = ({ categories }: NavbarProps) => {
     </div>
   );
 };
-
 export default Navbar;
