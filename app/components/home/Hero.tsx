@@ -46,11 +46,11 @@ const Hero = async () => {
                 </h1>
               </Link>
 
-              <p className="mt-4 line-clamp-3 text-sm leading-6 text-gray-500">
+              <p className="mt-4 line-clamp-3 text-sm leading-6 text-muted">
                 {featuredPost.excerpt}
               </p>
 
-              <button className="mt-5 text-sm font-semibold text-gray-800 transition-colors hover:text-orange-500">
+              <button className="mt-5 text-sm font-semibold text-muted transition-colors hover:text-accent">
                 Read More →
               </button>
             </div>
@@ -77,13 +77,14 @@ const Hero = async () => {
                     <span className="bg-accent px-2.5 py-1 text-[10px] font-semibold text-white">
                       {post.category}
                     </span>
-                    <div className="flex items-center gap-1 text-[11px] text-gray-500">
+                    <div className="flex items-center gap-1 text-[11px] text-muted">
                       <FaRegCalendar className="text-gray-400" />
                       <span>{formatDate(post.date)}</span>
+                      
                     </div>
                   </div>
                   <Link href={`/news/${post.slug}`}>
-                    <h3 className="mt-3 line-clamp-2 text-base font-bold leading-6 text-gray-800 transition-colors hover:text-accent">
+                    <h3 className="mt-3 line-clamp-2 text-base font-bold leading-6 text-[vaar(--surface)] transition-colors hover:text-accent">
                       {post.title}
                     </h3>
                   </Link>

@@ -7,6 +7,7 @@ import { rewriteContentImages } from "@/app/lib/utils/rewriteContentImages";
 import { formatDate } from "@/app/lib/utils/formatDate";
 import { SideBar, CategoryList, RecentPosts, AuthorCard, NewsletterWidget, SocialFollow } from "@/app/components/sidebar";
 import TopRatedNews from "@/app/components/sidebar/TopRatedNews";
+import Breadcrumb from "@/app/components/ui/Breadcrumb";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -54,8 +55,13 @@ export default async function NewsDetailPage({ params }: Props) {
   ]);
 
   return (
-    <div className="site-container mx-auto grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1fr_320px]">
-      <article className="site-container mx-auto py-10">
+    <div className="site-container mx-auto grid grid-cols-1 py-4 gap-10 lg:grid-cols-[1fr_320px]">
+      <article className="">
+        <Breadcrumb items={[
+          {label:post.category, href:`/category/${post.category.toLocaleLowerCase()}`},
+          {label:post.title.length > 60 ? post.title.slice(0,60)+ '...': post.title}
+
+        ]} />
         {/* Category + meta */}
         <div className="flex items-center gap-3">
           <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">

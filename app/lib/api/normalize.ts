@@ -6,7 +6,7 @@ export type NormalizedPost = {
   slug: string;
   date: string;
   excerpt: string;
-  content: string; // full HTML — used by detail page, ignored by list/card views
+  content: string; 
   image: string;
   category: string;
   author: string;
@@ -16,10 +16,10 @@ export type NormalizedPost = {
 export function normalizePost(post: WPPost): NormalizedPost {
   return {
     id: post.id,
-    title: post.title.rendered,
+    title: decodeHtmlEntities(post.title.rendered),
     slug: post.slug,
     date: post.date,    
-    excerpt: stripHtml(post.excerpt.rendered),
+    excerpt: decodeHtmlEntities(stripHtml(post.excerpt.rendered)),
     content: post.content?.rendered ?? "",
     image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? "/images/placeholder.png",
     category: post._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "Uncategorized",
@@ -29,4 +29,19 @@ export function normalizePost(post: WPPost): NormalizedPost {
 
 function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, "").trim();
+}
+function decodeHtmlEntities(text: string) {
+  return text
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8216;/g, "'")
+    .replace(/&#8220;/g, '"')
+    .replace(/&#8221;/g, '"')
+    .replace(/&#8211;/g, "–")
+    .replace(/&#8212;/g, "—")
+    .trim();
 }
