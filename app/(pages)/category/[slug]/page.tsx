@@ -30,7 +30,7 @@ const CategoryPage = async ({ params }: Props) => {
 
       ]} />
       <h1 className="text-2xl font-bold capitalize">{categoryName} News</h1>
-      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
         {posts.map((post) => (
           <NewsCard post={post} key={post.id} />
         ))}

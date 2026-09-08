@@ -8,13 +8,16 @@ const Hero = async () => {
   const posts = await getPosts({ perPage: 5 });
   const featuredPost = posts[0];
   const smallPosts = posts.slice(1);
+  const authorName =
+    featuredPost?.author.charAt(0).toUpperCase() +
+    featuredPost?.author.slice(1);
   return (
     <section className="w-full py-10">
       <div className="site-container mx-auto">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Featured Post */}
           <article className="group">
-            <div className="relative aspect-[4/2] overflow-hidden">
+            <div className="relative aspect-[5/2] overflow-hidden">
               <Link href={`/news/${featuredPost.slug}`}>
                 <Image
                   src={featuredPost.image}
@@ -36,23 +39,19 @@ const Hero = async () => {
                   <NewsMeta news={featuredPost} />
                 </div>
                 <span className=" text-xs font-semibold text-muted">
-                  Author: {featuredPost.author}
+                  Author: {authorName}
                 </span>
               </div>
 
               <Link href={`/news/${featuredPost.slug}`}>
                 <h1 className="mt-4 font-bold !text-[28px] leading-tight text-foreground cursor-pointer transition-colors hover:text-accent md:text-3xl">
-                  {featuredPost.title}
+                  {featuredPost.title.slice(0, 80) + "..."}
                 </h1>
               </Link>
 
               <p className="mt-4 line-clamp-3 text-sm leading-6 text-muted">
                 {featuredPost.excerpt}
               </p>
-
-              <button className="mt-5 text-sm font-semibold text-muted transition-colors hover:text-accent">
-                Read More →
-              </button>
             </div>
           </article>
 
@@ -60,7 +59,7 @@ const Hero = async () => {
           <div className="grid grid-cols-1 gap-x-6 gap-y-7 sm:grid-cols-2">
             {smallPosts.map((post) => (
               <article key={post.id} className="group">
-                <div className="relative aspect-[16/9] overflow-hidden">
+                <div className="relative aspect-[16/7] overflow-hidden">
                   <Link href={`/news/${post.slug}`}>
                     <Image
                       src={post.image}
@@ -73,15 +72,16 @@ const Hero = async () => {
                 </div>
 
                 <div className="mt-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="bg-accent px-2.5 py-1 text-[10px] font-semibold text-white">
-                      {post.category}
-                    </span>
-                    <div className="flex items-center gap-1 text-[11px] text-muted">
-                      <FaRegCalendar className="text-gray-400" />
-                      <span>{formatDate(post.date)}</span>
-                      
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center  gap-3">
+                      <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+                        {post.category}
+                      </span>
+                      <NewsMeta news={post} />
                     </div>
+                    <span className=" text-xs font-semibold text-muted">
+                      Author: {authorName}
+                    </span>
                   </div>
                   <Link href={`/news/${post.slug}`}>
                     <h3 className="mt-3 line-clamp-2 text-base font-bold leading-6 text-[vaar(--surface)] transition-colors hover:text-accent">

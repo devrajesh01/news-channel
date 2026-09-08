@@ -8,8 +8,9 @@ export default async function Home() {
   return (
     <>
       <Hero />
+       <NewsGridSection />
       {popularPosts.length > 0 && <Popular posts={popularPosts} />}
-      <NewsGridSection />
+     
     </>
   );
 }

@@ -3,13 +3,13 @@ import Image from "next/image";
 import { FaRegCalendar, FaRegComment } from "react-icons/fa";
 import { NormalizedPost } from "@/app/lib/api/normalize";
 import { formatDate } from "@/app/lib/utils/formatDate";
+import NewsMeta from "../home/NewsMeta";
 
 type NewsCardProps = {
   post: NormalizedPost;
   variant?: "default" | "horizontal" | "compact";
   priority?: boolean;
 };
-
 export default function NewsCard({
   post,
   variant = "default",
@@ -17,10 +17,10 @@ export default function NewsCard({
 }: NewsCardProps) {
   if (variant === "horizontal") {
     return (
-      <article className="group flex gap-4 w-[450px]">
+      <article className="group flex gap-4 w-[350px]">
         <Link
           href={`/news/${post.slug}`}
-          className="relative h-24 w-32 shrink-0 overflow-hidden rounded-md"
+          className="relative h-12 w-22 shrink-0 overflow-hidden rounded-md"
         >
           <Image
             src={post.image}
@@ -40,8 +40,7 @@ export default function NewsCard({
             </h3>
           </Link>
           <div className="mt-1.5 flex items-center gap-1 text-xs text-[var(--muted)]">
-            <FaRegCalendar className="h-3 w-3" />
-            <span>{formatDate(post.date)}</span>
+            <NewsMeta news={post} />
           </div>
         </div>
       </article>

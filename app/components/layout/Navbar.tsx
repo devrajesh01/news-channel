@@ -1,23 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { CiSearch } from "react-icons/ci";
 import { TbWorldShare } from "react-icons/tb";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { usePathname } from "next/navigation";
 import { Category } from "@/app/types/category";
 import { SearchTrigger } from "../search";
-import LinkButton from "@/app/lib/utils/LinkButton";
-
+import LinkButton from "@/app/components/ui/LinkButton";
+import { useSidebar } from "./SidebarProvider";
 
 type NavbarProps = {
   categories: Category[];
 };
 
 const Navbar = ({ categories }: NavbarProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { open } = useSidebar();
 
   const isLinkActive = (href: string) => pathname === href;
 
@@ -32,18 +30,20 @@ const Navbar = ({ categories }: NavbarProps) => {
     }`;
 
   return (
-    <div className="bg-[var(--background-muted)]">
+    <div className="hidden bg-[var(--background-muted)] md:block">
       <div className="flex h-12 w-full items-center justify-between">
-        {/* Desktop Navigation */}
-        <nav aria-label="Main navigation" className="hidden h-full md:block">
+        <nav aria-label="Main navigation" className="h-full">
           <ul className="flex h-full items-center gap-0">
             <li className="flex h-full items-center bg-[var(--foreground)] px-3">
-              <Link
-                href="/"
-                className="text-sm font-semibold text-foreground transition-colors hover:text-accent"
+              <button
+                type="button"
+                onClick={open}
+                aria-label="Open menu"
+                aria-haspopup="dialog"
+                className="flex h-full items-center transition-transform hover:scale-105"
               >
                 <TfiMenuAlt className="text-2xl text-surface" />
-              </Link>
+              </button>
             </li>
 
             <li className={liClass("/")}>
@@ -64,60 +64,17 @@ const Navbar = ({ categories }: NavbarProps) => {
             })}
           </ul>
         </nav>
-       
-        {/* Right Controls */}
-        <div className="ml-auto h-full flex items-center  gap-5">
-           <SearchTrigger/> 
-          <LinkButton className="group" href={"/"}> View All <TbWorldShare className="ml-2 !text-[24px] group-hover:translate-y-0" /></LinkButton>         
-         
+
+        <div className="ml-auto flex h-full items-center gap-5">
+          <SearchTrigger />
+          <LinkButton className="group" href={"/"}>
+            View All
+            <TbWorldShare className="ml-2 !text-[24px] group-hover:translate-y-0" />
+          </LinkButton>
         </div>
       </div>
-
-      {/* Mobile Navigation */}
-      {menuOpen && (
-        <nav
-          id="mobile-navigation"
-          aria-label="Mobile navigation"
-          className="border-t border-border py-4 md:hidden"
-        >
-          <ul className="flex flex-col gap-1">
-            <li>
-              <Link
-                href="/"
-                onClick={() => setMenuOpen(false)}
-                className={`block px-3 py-2.5 ${linkTextClass("/")}`}
-              >
-                Home
-              </Link>
-            </li>
-            {categories.map((category) => {
-              const href = `/category/${category.slug}`;
-              return (
-                <li key={category.id}>
-                  <Link
-                    href={href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`block px-3 py-2.5 ${linkTextClass(href)}`}
-                  >
-                    {category.name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="relative mt-4">
-            <CiSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
-            <input
-              type="search"
-              placeholder="Search news..."
-              aria-label="Search news"
-              className="h-10 w-full rounded-full border border-border bg-surface pl-9 pr-4 text-sm text-foreground outline-none transition focus:border-accent"
-            />
-          </div>
-        </nav>
-      )}
     </div>
   );
 };
+
 export default Navbar;
