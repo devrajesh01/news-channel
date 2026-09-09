@@ -11,7 +11,7 @@ const CommentItem = ({ comment, depth = 0 }: CommentItemProps) => {
   return (
     <div className={depth > 0 ? "ml-6 border-l border-border pl-4 sm:ml-10 sm:pl-6" : ""}>
       <div className="flex gap-3 py-4">
-        {/* <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-background-muted">
+        <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-background-muted">
           <Image
             src={comment.authorAvatar}
             alt={comment.authorName}
@@ -19,7 +19,7 @@ const CommentItem = ({ comment, depth = 0 }: CommentItemProps) => {
             sizes="40px"
             className="object-cover"
           />
-        </div> */}
+        </div>
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-2">

@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
         hostname: "relaxed-tereshkova.74-208-156-247.plesk.page",
         pathname: "/rias-apartment/wp-content/uploads/**",
       },
+      {
+        protocol: "https" as const,
+        hostname: "secure.gravatar.com",
+        pathname: "/avatar/**",
+      },
     ],
   },
 };
