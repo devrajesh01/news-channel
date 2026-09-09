@@ -36,7 +36,7 @@ export function ScrollTopButton() {
       type="button"
       onClick={handleClick}
       aria-label="Back to top"
-      className="fixed bottom-13 right-2 z-40 grid h-10 w-10 place-items-center rounded-full bg-accent shadow-lg transition-[opacity,transform] duration-[380ms] ease-[cubic-bezier(.22,1,.36,1)] hover:bg-accent-hover sm:h-11 sm:w-11"
+      className="fixed bottom-20 right-4 z-40 grid h-10 w-10 place-items-center rounded-full bg-accent shadow-lg transition-[opacity,transform] duration-[380ms] ease-[cubic-bezier(.22,1,.36,1)] hover:bg-accent-hover sm:h-11 sm:w-11"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible
@@ -45,7 +45,7 @@ export function ScrollTopButton() {
         pointerEvents: visible ? "auto" : "none",
       }}
     >
-      <svg width="44" height="44" viewBox="0 0 44 44" className="absolute inset-0">
+      <svg viewBox="0 0 44 44" className="absolute inset-0 h-full w-full">
         <circle
           cx="22"
           cy="22"
