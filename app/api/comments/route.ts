@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
-const WP_API_BASE = process.env.WP_API_URL;
+const WP_API_BASE = process.env.WP_API_URL; 
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
