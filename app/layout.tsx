@@ -5,6 +5,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import { getCategories } from "./lib/api/posts";
 import FloatingThemeToggle from "./components/theme/FloatingThemeToggle";
+import { ScrollTopButton } from "./lib/utils/ScrollTopButton";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -51,6 +52,7 @@ export default  function RootLayout({
         <main>{children}</main>
         <Footer />
         <FloatingThemeToggle/>
+        <ScrollTopButton/>
       </body>
     </html>
   );

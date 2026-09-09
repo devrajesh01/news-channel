@@ -5,9 +5,16 @@ import { getCategories, getPostBySlug, getPosts } from "@/app/lib/api/posts";
 import type { Metadata } from "next";
 import { rewriteContentImages } from "@/app/lib/utils/rewriteContentImages";
 import { formatDate } from "@/app/lib/utils/formatDate";
-import { SideBar, CategoryList, RecentPosts, AuthorCard, NewsletterWidget, SocialFollow } from "@/app/components/sidebar";
-import TopRatedNews from "@/app/components/sidebar/TopRatedNews";
+import {
+  SideBar,
+  CategoryList,
+  RecentPosts,
+  AuthorCard,
+  NewsletterWidget,
+  SocialFollow,
+} from "@/app/components/sidebar";
 import Breadcrumb from "@/app/components/ui/Breadcrumb";
+import ShareButtons from "@/app/components/services/share/ShareButtons";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -57,20 +64,36 @@ export default async function NewsDetailPage({ params }: Props) {
   return (
     <div className="site-container mx-auto grid grid-cols-1 py-4 gap-10 lg:grid-cols-[1fr_320px]">
       <article className="">
-        <Breadcrumb items={[
-          {label:post.category, href:`/category/${post.category.toLocaleLowerCase()}`},
-          {label:post.title.length > 60 ? post.title.slice(0,60)+ '...': post.title}
-
-        ]} />
+        <Breadcrumb
+          items={[
+            {
+              label: post.category,
+              href: `/category/${post.category.toLocaleLowerCase()}`,
+            },
+            {
+              label:
+                post.title.length > 60
+                  ? post.title.slice(0, 60) + "..."
+                  : post.title,
+            },
+          ]}
+        />
         {/* Category + meta */}
-        <div className="flex items-center gap-3">
-          <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
-            {post.category}
-          </span>
-          <div className="flex items-center gap-1.5 text-xs text-gray-500">
-            <FaRegCalendar className="text-gray-400" />
-            <span>{formatDate(post.date)}</span>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex gap-4">
+            <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+              {post.category}
+            </span>
+            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <FaRegCalendar className="text-gray-400" />
+              <span>{formatDate(post.date)}</span>
+            </div>
           </div>
+          <ShareButtons
+            title={post.title}
+            url={`https://news-channel-phi.vercel.app/news/${post.slug}`}
+            text={post.excerpt}
+          />
         </div>
 
         {/* Title */}
@@ -99,11 +122,11 @@ export default async function NewsDetailPage({ params }: Props) {
         />
       </article>
       <SideBar>
-        <NewsletterWidget/>
-        <SocialFollow/>
-        <CategoryList categories={categories}  />
+        <NewsletterWidget />
+        <SocialFollow />
+        <CategoryList categories={categories} />
         <RecentPosts posts={recentPosts} />
-        <AuthorCard author={post.author} />               
+        <AuthorCard author={post.author} />
       </SideBar>
     </div>
   );
