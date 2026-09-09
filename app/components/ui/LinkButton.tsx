@@ -15,7 +15,7 @@ const LinkButton = ({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center text-[16px] justify-center  bg-accent px-4 h-full text-sm font-medium !text-white transition-colors hover:text-accent ${className}`}
+      className={` items-center text-[16px] justify-center  bg-accent px-4 h-full text-sm font-medium !text-white transition-colors hover:text-accent ${className}`}
       {...props}
     >
       {children}

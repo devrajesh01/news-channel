@@ -4,7 +4,7 @@ import Link from "next/link";
 const Advertisement = () => {
   return (
     <div className="hidden items-center justify-center lg:flex">
-      <Link href={"!#"} className="relative h-[90px] w-[728px] overflow-hidden">
+      <Link href={"!#"} className="relative h-[83px] w-[728px] overflow-hidden">
         <Image
           src="/images/advertisemnt.png"
           alt="Advertisement"

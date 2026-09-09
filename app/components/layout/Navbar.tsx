@@ -5,9 +5,11 @@ import { TbWorldShare } from "react-icons/tb";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { usePathname } from "next/navigation";
 import { Category } from "@/app/types/category";
-import { SearchTrigger } from "../search";
+import { SearchTrigger } from "../services/search";
 import LinkButton from "@/app/components/ui/LinkButton";
 import { useSidebar } from "./SidebarProvider";
+import MobileMenuButton from "./MobileMenuButton";
+import Logo from "./Logo";
 
 type NavbarProps = {
   categories: Category[];
@@ -30,16 +32,16 @@ const Navbar = ({ categories }: NavbarProps) => {
     }`;
 
   return (
-    <div className="hidden bg-[var(--background-muted)] md:block">
-      <div className="flex h-12 w-full items-center justify-between">
-        <nav aria-label="Main navigation" className="h-full">
+    <div className=" w-full bg-[var(--background-muted)] ">
+      <div className=" h-12 w-full items-center justify-between flex">
+        <nav aria-label="Main navigation" className="h-full hidden md:flex ">
           <ul className="flex h-full items-center gap-0">
             <li className="flex h-full items-center bg-[var(--foreground)] px-3">
               <button
                 type="button"
                 onClick={open}
                 aria-label="Open menu"
-                aria-haspopup="dialog"
+                aria-haspopup="dialog"                                                                   
                 className="flex h-full items-center transition-transform hover:scale-105"
               >
                 <TfiMenuAlt className="text-2xl text-surface" />
@@ -51,6 +53,7 @@ const Navbar = ({ categories }: NavbarProps) => {
                 Home
               </Link>
             </li>
+
 
             {categories.slice(0, 6).map((category) => {
               const href = `/category/${category.slug}`;
@@ -64,17 +67,17 @@ const Navbar = ({ categories }: NavbarProps) => {
             })}
           </ul>
         </nav>
-
-        <div className="ml-auto flex h-full items-center gap-5">
+        <Logo className=" flex md:hidden !w-[140px]" />
+        <div className="ml-auto flex  h-full items-center gap-5">         
           <SearchTrigger />
-          <LinkButton className="group" href={"/"}>
+          <LinkButton className="group hidden md:inline-flex" href={"/"}>
             View All
             <TbWorldShare className="ml-2 !text-[24px] group-hover:translate-y-0" />
           </LinkButton>
+           <MobileMenuButton />
         </div>
       </div>
     </div>
   );
 };
-
 export default Navbar;

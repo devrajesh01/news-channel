@@ -72,9 +72,9 @@
   box-sizing: border-box;
 }
 
-html {
+/* html {
   scroll-behavior: smooth;
-}
+} */
 
 body {
   margin: 0;
@@ -82,7 +82,11 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* overflow: hidden; */
 }
+/* body {
+  overflow-x: clip; 
+} */
 
 /* ========================================
    IMAGES

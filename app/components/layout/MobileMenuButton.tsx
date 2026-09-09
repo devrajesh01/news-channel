@@ -2,11 +2,13 @@
 
 import { HiOutlineMenu } from "react-icons/hi";
 import { useSidebar } from "./SidebarProvider";
+import { SearchTrigger } from "../services/search";
 
 const MobileMenuButton = () => {
   const { open } = useSidebar();
 
   return (
+    <>   
     <button
       type="button"
       onClick={open}
@@ -16,6 +18,7 @@ const MobileMenuButton = () => {
     >
       <HiOutlineMenu className="h-6 w-6" />
     </button>
+    </>
   );
 };
 

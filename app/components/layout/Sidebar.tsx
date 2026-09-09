@@ -50,8 +50,8 @@ const Sidebar = ({ categories }: SidebarProps) => {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className={`fixed inset-y-0 right-0 z-[70] flex h-full w-[85vw] max-w-[360px] flex-col bg-[var(--background)] shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed inset-y-0 left-0 z-[70] flex h-full w-[85vw] max-w-[360px] flex-col bg-[var(--background)] shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isOpen ? "translate-x-0" : "translate-x-[-360px]"
         }`}
       >
         <div className="flex items-center justify-between border-b border-border px-5 py-4">

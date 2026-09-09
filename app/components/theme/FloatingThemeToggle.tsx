@@ -1,4 +1,4 @@
-import { SearchTrigger } from "../search";
+import { SearchTrigger } from "../services/search";
 import ThemeToggle from "./ThemeToggle";
 
 export default function FloatingThemeToggle() {
