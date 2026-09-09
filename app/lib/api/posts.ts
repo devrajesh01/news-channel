@@ -1,20 +1,30 @@
 import { wpFetch } from "./client";
-import { WPPost } from "@/app/types/news";
-import { normalizePost, NormalizedPost } from "./normalize";
+import { WPComment, WPPost } from "@/app/types/news";
+import { normalizePost, NormalizedPost, NormalizedComment, normalizeComment } from "./normalize";
 import { cache } from "react";
 import { Category } from "@/app/types/category";
-type GetPostsOptions = {
-  page?: number;
-  perPage?: number;
-};
+
 type GetCategoriesOptions = {
   per_page?: number;  
 };
 
 
+type GetPostsOptions = {
+  page?: number;
+  perPage?: number;
+  before?: string;
+  after?: string;
+  orderby?: "date" | "title" | "id";
+  order?: "asc" | "desc";
+};
+
 export const getPosts = async ({
   page = 1,
   perPage = 10,
+  before,
+  after,
+  orderby,
+  order,
 }: GetPostsOptions = {}): Promise<NormalizedPost[]> => {
   const posts = await wpFetch<WPPost[]>("/posts", {
     params: {
@@ -22,10 +32,14 @@ export const getPosts = async ({
       per_page: perPage,
       page,
       _fields: "id,date,slug,title,excerpt,categories,author,_links,_embedded",
+      ...(before && { before }),
+      ...(after && { after }),
+      ...(orderby && { orderby }),
+      ...(order && { order }),
     },
     tags: ["posts"],
   });
-  return posts.map(normalizePost); // content will just be undefined/missing here — fine for listings
+  return posts.map(normalizePost);
 };
 
 export const getPostBySlug = cache(async (
@@ -37,6 +51,21 @@ export const getPostBySlug = cache(async (
   });
   return posts[0] ? normalizePost(posts[0]) : null; 
 });
+// app/lib/api/posts.ts
+
+export const getAdjacentPosts = async (
+  post: NormalizedPost
+): Promise<{ prevPost: NormalizedPost | null; nextPost: NormalizedPost | null }> => {
+  const [prevPosts, nextPosts] = await Promise.all([
+    getPosts({ perPage: 1, before: post.date, orderby: "date", order: "desc" }),
+    getPosts({ perPage: 1, after: post.date, orderby: "date", order: "asc" }),
+  ]);
+
+  return {
+    prevPost: prevPosts[0] ?? null,
+    nextPost: nextPosts[0] ?? null,
+  };
+};
 
 export const getCategories = cache(
   async ({ per_page = 20 }: GetCategoriesOptions = {}): Promise<Category[]> => {
@@ -74,4 +103,21 @@ export const getPostsByCategorySlug = async (
   });
 
   return posts.map(normalizePost);
+};
+
+// =====================fetching comments============
+export const getCommentsByPostId = async (
+  postId: number,
+  perPage = 50
+): Promise<NormalizedComment[]> => {
+  const comments = await wpFetch<WPComment[]>("/comments", {
+    params: {
+      post: postId,
+      per_page: perPage,
+      order: "asc", // oldest first — standard comment-thread order
+    },
+    tags: ["comments", `comments-post-${postId}`],
+  });
+
+  return comments.map(normalizeComment);
 };

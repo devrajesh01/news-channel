@@ -1,4 +1,4 @@
-import { WPPost } from "@/app/types/news";
+import { WPComment, WPPost } from "@/app/types/news";
 
 export type NormalizedPost = {
   id: number;
@@ -24,6 +24,31 @@ export function normalizePost(post: WPPost): NormalizedPost {
     image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? "/images/placeholder.png",
     category: post._embedded?.["wp:term"]?.[0]?.[0]?.name ?? "Uncategorized",
     author: post._embedded?.author?.[0]?.name ?? "Unknown Author",    
+  };
+}
+
+export type NormalizedComment = {
+  id: number;
+  postId: number;
+  parentId: number;
+  authorName: string;
+  authorAvatar: string;
+  date: string;
+  content: string;
+};
+
+export function normalizeComment(comment: WPComment): NormalizedComment {
+  return {
+    id: comment.id,
+    postId: comment.post,
+    parentId: comment.parent,
+    authorName: decodeHtmlEntities(comment.author_name),
+    authorAvatar:
+      comment.author_avatar_urls?.["96"] ??
+      comment.author_avatar_urls?.["48"] ??
+      "/images/avatar-placeholder.png",
+    date: comment.date,
+    content: comment.content?.rendered ?? "",
   };
 }
 

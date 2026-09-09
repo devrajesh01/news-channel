@@ -32,3 +32,18 @@ export type WPPost = {
      author?: { id: number; name: string }[]; // 
   };
 };
+export type WPComment = {
+  id: number;
+  post: number;
+  parent: number;
+  author_name: string;
+  author_avatar_urls?: {
+    "24"?: string;
+    "48"?: string;
+    "96"?: string;
+  };
+  date: string;
+  content: {
+    rendered: string;
+  };
+};

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { FaRegCalendar } from "react-icons/fa";
-import { getCategories, getPostBySlug, getPosts } from "@/app/lib/api/posts";
+import { getAdjacentPosts, getCategories, getCommentsByPostId, getPostBySlug, getPosts } from "@/app/lib/api/posts";
 import type { Metadata } from "next";
 import { rewriteContentImages } from "@/app/lib/utils/rewriteContentImages";
 import { formatDate } from "@/app/lib/utils/formatDate";
@@ -15,6 +15,9 @@ import {
 } from "@/app/components/sidebar";
 import Breadcrumb from "@/app/components/ui/Breadcrumb";
 import ShareButtons from "@/app/components/services/share/ShareButtons";
+import PostNavigation from "@/app/components/news/PostNavigation";
+import PostContent from "@/app/components/news/PostContent";
+import CommentList from "@/app/components/services/comments/CommentList";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -56,13 +59,16 @@ export default async function NewsDetailPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) notFound();
-  const [categories, recentPosts] = await Promise.all([
-    getCategories(),
-    getPosts({ perPage: 4 }),
-  ]);
+  const [categories, recentPosts, { prevPost, nextPost }, comments] = await Promise.all([
+  getCategories(),
+  getPosts({ perPage: 4 }),
+  getAdjacentPosts(post),
+  getCommentsByPostId(post.id),
+]);
 
   return (
     <div className="site-container mx-auto grid grid-cols-1 py-4 gap-10 lg:grid-cols-[1fr_320px]">
+      <div>
       <article className="">
         <Breadcrumb
           items={[
@@ -114,13 +120,17 @@ export default async function NewsDetailPage({ params }: Props) {
         </div>
 
         {/* Full content — rendered from WordPress HTML */}
-        <div
-          className="prose prose-lg mt-8 relative max-w-none text-gray-700 [&_img]:h-auto [&_img]:w-full [&_img]:rounded-md [&_figure]:my-6"
+        {/* <div
+          className="prose prose-lg post-content mt-8 relative max-w-none text-gray-700 [&_img]:h-auto [&_img]:w-full [&_img]:rounded-md [&_figure]:my-6"
           dangerouslySetInnerHTML={{
             __html: rewriteContentImages(post.content),
           }}
-        />
+        /> */}
+        <CommentList comments={comments} />
+        <PostContent html={rewriteContentImages(post.content)} />
       </article>
+      <PostNavigation prevPost={prevPost} nextPost={nextPost} />
+      </div>
       <SideBar>
         <NewsletterWidget />
         <SocialFollow />
