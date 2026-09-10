@@ -13,10 +13,11 @@ export async function generateMetadata({ params }: Props) {
     title: `${slug.charAt(0).toUpperCase() + slug.slice(1)} News`,
   };
 }
-
+const PER_PAGE = 4;
 const CategoryPage = async ({ params }: Props) => {
   const { slug } = await params;
-  const posts = await getPostsByCategorySlug(slug, 1, 4);
+  const posts = await getPostsByCategorySlug(slug, 1, PER_PAGE);
+  console.log(posts.length)
   const categoryName = slug?.charAt(0).toUpperCase() + slug.slice(1);
 
   if (posts.length === 0) {
@@ -25,10 +26,10 @@ const CategoryPage = async ({ params }: Props) => {
 
   return (
     <div className="site-container mx-auto py-10">
-      <Breadcrumb items={[{ label: categoryName }]} />
+      <Breadcrumb items={[{label:"Category"},{ label: categoryName }]} />
       <h1 className="text-2xl font-bold capitalize">{categoryName} News</h1>
 
-      <InfiniteNewsGrid categorySlug={slug} initialPosts={posts} />
+      <InfiniteNewsGrid categorySlug={slug} initialPosts={posts} perPage={PER_PAGE} />
     </div>
   );
 };

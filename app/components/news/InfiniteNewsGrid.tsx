@@ -4,17 +4,17 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { NormalizedPost } from "@/app/lib/api/normalize";
 import NewsCard from "@/app/components/news/NewsCard";
 
-const PER_PAGE = 12;
 
 type InfiniteNewsGridProps = {
   categorySlug: string;
   initialPosts: NormalizedPost[];
+   perPage: number;
 };
 
-const InfiniteNewsGrid = ({ categorySlug, initialPosts }: InfiniteNewsGridProps) => {
+const InfiniteNewsGrid = ({ categorySlug, initialPosts ,perPage }: InfiniteNewsGridProps) => {
   const [posts, setPosts] = useState(initialPosts);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(initialPosts.length === PER_PAGE);
+  const [hasMore, setHasMore] = useState(initialPosts.length === perPage);
   const [loading, setLoading] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,7 @@ const InfiniteNewsGrid = ({ categorySlug, initialPosts }: InfiniteNewsGridProps)
 
     const nextPage = page + 1;
     const res = await fetch(
-      `/api/posts/category/${categorySlug}?page=${nextPage}&perPage=${PER_PAGE}`
+      `/api/posts/category/${categorySlug}?page=${nextPage}&perPage=${perPage}`
     );
     const data = await res.json();
 
@@ -32,7 +32,7 @@ const InfiniteNewsGrid = ({ categorySlug, initialPosts }: InfiniteNewsGridProps)
     setPage(nextPage);
     setHasMore(data.hasMore);
     setLoading(false);
-  }, [categorySlug, page, loading, hasMore]);
+  }, [categorySlug, page, loading, hasMore,perPage]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -48,6 +48,7 @@ const InfiniteNewsGrid = ({ categorySlug, initialPosts }: InfiniteNewsGridProps)
     observer.observe(sentinel);
     return () => observer.disconnect();
   }, [loadMore]);
+  
 
   return (
     <>

@@ -82,7 +82,6 @@ export const getPostsByCategorySlug = async (
   page = 1,
   perPage = 10
 ): Promise<NormalizedPost[]> => {
-  // WordPress REST API filters by category ID, not slug — so first resolve the slug to an ID
   const categories = await wpFetch<{ id: number }[]>("/categories", {
     params: { slug: categorySlug },
     tags: ["categories"],
