@@ -32,9 +32,12 @@ export default function NewsCard({
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+              <Link
+                href={`/category/${post.category.toLowerCase()}`}
+                className="bg-accent px-3 py-1 text-xs font-semibold !text-white transition hover:bg-accent-hover"
+              >
                 {post.category}
-              </span>              
+              </Link>             
             </div>
           </div>
           <Link href={`/news/${post.slug}`}>

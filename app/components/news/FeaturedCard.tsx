@@ -24,24 +24,11 @@ export default function FeaturedCard({ post, priority = false }: FeaturedCardPro
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
-      <span className="absolute left-4 top-4 z-10 bg-[var(--accent)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+      <Link href={`/category/${post.category.toLowerCase()}`} className="absolute left-4 top-4 z-10 bg-[var(--accent)] px-3 py-1 text-xs font-semibold uppercase tracking-wide !text-white">
         {post.category}
-      </span>
+      </Link>
 
-      <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-5 text-white">
-        <div className="flex items-center gap-4 text-xs text-white/80">
-          <div className="flex items-center gap-1.5">
-            <FaRegCalendar className="h-3 w-3" />
-            <span>{post.date}</span>
-          </div>
-          {post.comments !== undefined && (
-            <div className="flex items-center gap-1.5">
-              <FaRegComment className="h-3 w-3" />
-              <span>({post.comments})</span>
-            </div>
-          )}
-        </div>
-
+      <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-5 text-white">       
         <Link href={`/news/${post.slug}`}>
           <h3 className="line-clamp-2 text-xl font-bold leading-snug transition-colors group-hover:text-[var(--accent)]">
             {post.title}

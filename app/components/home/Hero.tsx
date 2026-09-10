@@ -33,9 +33,9 @@ const Hero = async () => {
             <div className="mt-5">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center  gap-3">
-                  <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+                  <Link href={`/category/${featuredPost.category.toLowerCase()}`} className="bg-accent px-3 py-1 text-xs font-semibold !text-white">
                     {featuredPost.category}
-                  </span>
+                  </Link>
                   <NewsMeta news={featuredPost} />
                 </div>
                 <span className=" text-xs font-semibold text-muted">
@@ -74,9 +74,9 @@ const Hero = async () => {
                 <div className="mt-3">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center  gap-3">
-                      <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+                      <Link href={`/category/${post.category.toLowerCase()}`} className="bg-accent px-3 py-1 text-xs font-semibold !text-white">
                         {post.category}
-                      </span>
+                      </Link>
                       <NewsMeta news={post} />
                     </div>
                     <span className=" text-xs font-semibold text-muted">
