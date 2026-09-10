@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useRef, useCallback, useEffect } from "react";
 import Lightbox from "./Lightbox";
 
@@ -12,7 +11,7 @@ const PostContent = ({ html }: PostContentProps) => {
   const [images, setImages] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  // Collect every image inside the post once it's rendered
+  // Collect every image inside the post once it's rendered                                                                                                                                                                                                                                                                     
   useEffect(() => {
     if (!containerRef.current) return;
     const imgs = Array.from(containerRef.current.querySelectorAll("img"));

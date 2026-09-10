@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaRegCalendar, FaRegComment } from "react-icons/fa";
 import { NormalizedPost } from "@/app/lib/api/normalize";
-import { formatDate } from "@/app/lib/utils/formatDate";
 import NewsMeta from "../home/NewsMeta";
 
 type NewsCardProps = {
@@ -20,28 +19,29 @@ export default function NewsCard({
       <article className="group flex gap-4 w-[350px]">
         <Link
           href={`/news/${post.slug}`}
-          className="relative h-12 w-22 shrink-0 overflow-hidden rounded-md"
+          className="relative w-[88px] shrink-0 overflow-hidden rounded-md"
         >
           <Image
             src={post.image}
             alt={post.title}
             fill
-            sizes="128px"
+            sizes="88px"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </Link>
         <div className="min-w-0 flex-1">
-          <span className="inline-block bg-[var(--accent)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-            {post.category}
-          </span>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="bg-accent px-3 py-1 text-xs font-semibold text-white">
+                {post.category}
+              </span>              
+            </div>
+          </div>
           <Link href={`/news/${post.slug}`}>
             <h3 className="mt-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--foreground)] transition-colors group-hover:text-[var(--accent)]">
               {post.title}
             </h3>
           </Link>
-          <div className="mt-1.5 flex items-center gap-1 text-xs text-[var(--muted)]">
-            <NewsMeta news={post} />
-          </div>
         </div>
       </article>
     );
@@ -97,14 +97,12 @@ export default function NewsCard({
         <div className="mt-4 flex items-center justify-between border-t border-[var(--border)] pt-3 text-xs text-[var(--muted)]">
           <div className="flex items-center gap-1.5">
             <FaRegCalendar className="h-3 w-3" />
-            <span>{post.date}</span>
-          </div>
-          {post.comments !== undefined && (
+            <span>{post.category}</span>
+          </div>         
             <div className="flex items-center gap-1.5">
               <FaRegComment className="h-3 w-3" />
-              <span>{post.comments}</span>
-            </div>
-          )}
+              <span> Writter: {post.author}</span>
+            </div>          
         </div>
       </div>
     </article>

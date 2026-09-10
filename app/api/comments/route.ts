@@ -46,9 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     const comment = await res.json();
-
     revalidateTag(`comments-post-${postId}`, "max");
-
     return NextResponse.json({ success: true, comment });
   } catch {
     return NextResponse.json(
