@@ -65,12 +65,6 @@ const InfiniteNewsGrid = ({ categorySlug, initialPosts ,perPage }: InfiniteNewsG
           )}
         </div>
       )}
-
-      {!hasMore && posts.length > 0 && (
-        <p className="py-10 text-center text-sm text-muted">
-          You've reached the end.
-        </p>
-      )}
     </>
   );
 };
