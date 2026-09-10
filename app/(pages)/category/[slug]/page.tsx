@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPostsByCategorySlug } from "@/app/lib/api/posts";
-import NewsCard from "@/app/components/news/NewsCard";
+import InfiniteNewsGrid from "@/app/components/news/InfiniteNewsGrid";
 import Breadcrumb from "@/app/components/ui/Breadcrumb";
 
 type Props = {
@@ -15,9 +15,9 @@ export async function generateMetadata({ params }: Props) {
 }
 
 const CategoryPage = async ({ params }: Props) => {
-  const { slug  } = await params;
-  const posts = await getPostsByCategorySlug(slug);
-  const categoryName =  slug?.charAt(0).toUpperCase() + slug.slice(1)
+  const { slug } = await params;
+  const posts = await getPostsByCategorySlug(slug, 1, 4);
+  const categoryName = slug?.charAt(0).toUpperCase() + slug.slice(1);
 
   if (posts.length === 0) {
     notFound();
@@ -25,16 +25,10 @@ const CategoryPage = async ({ params }: Props) => {
 
   return (
     <div className="site-container mx-auto py-10">
-      <Breadcrumb items={[
-        {label:categoryName}
-
-      ]} />
+      <Breadcrumb items={[{ label: categoryName }]} />
       <h1 className="text-2xl font-bold capitalize">{categoryName} News</h1>
-      <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-        {posts.map((post) => (
-          <NewsCard post={post} key={post.id} />
-        ))}
-      </div>
+
+      <InfiniteNewsGrid categorySlug={slug} initialPosts={posts} />
     </div>
   );
 };
