@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { NormalizedPost } from "@/app/lib/api/normalize";
 import { Category } from "@/app/types/category";
+import { formatDate } from "@/app/lib/utils/formatDate";
 
 type SearchResultsProps = {
   query: string;
@@ -99,7 +100,7 @@ export default function SearchResults({
                     {post.title}
                   </p>
                   <span className="mt-1 block text-xs text-[var(--muted)]">
-                    {post.category} · {post.date}
+                    {post.category} · {formatDate(post.date)}
                   </span>
                 </div>
               </Link>
