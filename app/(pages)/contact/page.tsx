@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from "react-icons/hi";
 import ContactForm from "@/app/components/services/contact/ContactForm";
 import Breadcrumb from "@/app/components/ui/Breadcrumb";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -32,7 +33,11 @@ const ContactPage = () => {
                 <HiOutlineMail className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
                 <div>
                   <p className="text-sm font-semibold text-foreground">Email</p>
-                  <p className="text-sm text-muted">contact@yourdomain.com</p>
+                  <p className="text-sm text-muted">
+                    <Link href="mailto:rajesh.kumar.dev23@gmail.com" target="_blank" className="hover:!text-accent transition">
+                      rajesh.kumar.dev23@gmail.com
+                    </Link>
+                  </p>
                 </div>
               </div>
 
@@ -40,7 +45,7 @@ const ContactPage = () => {
                 <HiOutlinePhone className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
                 <div>
                   <p className="text-sm font-semibold text-foreground">Phone</p>
-                  <p className="text-sm text-muted">+91 00000 00000</p>
+                  <p className="text-sm text-muted"><Link className="hover:!text-accent" href={"tel:+91 8810632392"} >+91 8810632392</Link></p>
                 </div>
               </div>
 
