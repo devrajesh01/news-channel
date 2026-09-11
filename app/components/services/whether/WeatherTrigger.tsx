@@ -9,11 +9,11 @@ import { reverseGeocodeCity } from "@/app/lib/api/geolocation";
 
 const WeatherModal = dynamic(() => import("./WeatherModal"), { ssr: false });
 
-const GEO_PROMPT_DELAY = 40000; // 40 seconds after page load
+const GEO_PROMPT_DELAY = 40000;
 const GEO_STORAGE_KEY = "weather-geo-permission";
 
 type WeatherTriggerProps = {
-  weather: WeatherData; // server-rendered default (Kolkata) — always the fallback
+  weather: WeatherData;
 };
 
 const WeatherTrigger = ({ weather: initialWeather }: WeatherTriggerProps) => {
@@ -25,7 +25,7 @@ const WeatherTrigger = ({ weather: initialWeather }: WeatherTriggerProps) => {
     if (typeof window === "undefined" || !navigator.geolocation) return;
 
     const storedPermission = localStorage.getItem(GEO_STORAGE_KEY);
-    if (storedPermission === "denied") return; // respect a prior decline, don't nag every visit
+    if (storedPermission === "denied") return;
 
     const requestLocation = () => {
       if (attemptedRef.current) return;
@@ -41,13 +41,11 @@ const WeatherTrigger = ({ weather: initialWeather }: WeatherTriggerProps) => {
         },
         () => {
           localStorage.setItem(GEO_STORAGE_KEY, "denied");
-          // no-op — keep showing the default city already loaded
         },
         { timeout: 10000 }
       );
     };
 
-    // Already granted before? Ask again right away, no need to wait. Otherwise, wait 40s.
     const delay = storedPermission === "granted" ? 0 : GEO_PROMPT_DELAY;
     const timer = setTimeout(requestLocation, delay);
     return () => clearTimeout(timer);
@@ -67,7 +65,9 @@ const WeatherTrigger = ({ weather: initialWeather }: WeatherTriggerProps) => {
         <span className="hidden text-muted/70 md:inline">{weather.city}</span>
       </button>
 
-      {isOpen && <WeatherModal weather={weather} onClose={() => setIsOpen(false)} />}
+      {isOpen && (
+        <WeatherModal weather={weather} onClose={() => setIsOpen(false)} onWeatherChange={setWeather} />
+      )}
     </>
   );
 };

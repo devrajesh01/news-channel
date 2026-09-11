@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { IoClose, IoChevronDown } from "react-icons/io5";
 import { Category } from "@/app/types/category";
 import { useSidebar } from "./SidebarProvider";
+import Logo from "./Logo";
 
 type SidebarProps = {
   categories: Category[];
@@ -55,17 +56,20 @@ const Sidebar = ({ categories }: SidebarProps) => {
         }`}
       >
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <span className="text-sm font-bold uppercase tracking-wider text-foreground">
-            Menu
-          </span>
-          <button
-            type="button"
-            onClick={close}
-            aria-label="Close menu"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-[var(--background-muted)] hover:text-accent"
-          >
-            <IoClose className="h-5 w-5" />
-          </button>
+          <Logo />
+          <div className="flex items-center gap-0">
+            <span className="text-sm font-bold uppercase tracking-wider text-foreground">
+              Menu
+            </span>
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close menu"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-[var(--background-muted)] hover:text-accent"
+            >
+              <IoClose className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         <nav className="flex-1 overflow-y-auto px-2 py-3">
@@ -86,7 +90,10 @@ const Sidebar = ({ categories }: SidebarProps) => {
               const isExpanded = expandedId === String(category.id);
 
               return (
-                <li key={category.id} className="border-b border-border/60 last:border-none">
+                <li
+                  key={category.id}
+                  className="border-b border-border/60 last:border-none"
+                >
                   <div className="flex items-center justify-between">
                     <Link
                       href={`/category/${category.slug}`}
