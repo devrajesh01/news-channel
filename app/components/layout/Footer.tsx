@@ -1,6 +1,7 @@
 import { getCategories } from "@/app/lib/api/posts";
 import Link from "next/link";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import Logo from "./Logo";
 
 export default async function Footer() {
   const year = new Date().getFullYear();
@@ -12,9 +13,7 @@ export default async function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <h2 className="font-[var(--font-newsreader)] text-2xl font-bold text-[var(--foreground)]">
-              NEWS<span className="text-[var(--accent)]">.</span>
-            </h2>
+            <Logo/>
             <p className="mt-3 max-w-xs text-sm leading-6 text-[var(--muted)]">
               Independent journalism, breaking news and stories that matter —
               delivered fast, reported fair.

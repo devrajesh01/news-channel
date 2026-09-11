@@ -4,6 +4,7 @@ import Breadcrumb from "@/app/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+ 
 };
 
 const PrivacyPage = () => {

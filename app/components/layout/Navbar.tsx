@@ -70,8 +70,8 @@ const Navbar = ({ categories }: NavbarProps) => {
         <Logo className=" flex md:hidden !w-[140px]" />
         <div className="ml-auto flex  h-full items-center gap-5">         
           <SearchTrigger />
-          <LinkButton className="group hidden md:inline-flex" href={"/"}>
-            View All
+          <LinkButton className="group hidden md:inline-flex" href={"/contact"}>
+           Contact Us
             <TbWorldShare className="ml-2 !text-[24px] group-hover:translate-y-0" />
           </LinkButton>
            <MobileMenuButton />
