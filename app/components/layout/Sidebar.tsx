@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { IoClose, IoChevronDown } from "react-icons/io5";
 import { Category } from "@/app/types/category";
 import { useSidebar } from "./SidebarProvider";
+import { useActiveCategory } from "./ActiveCategoryProvider";
 import Logo from "./Logo";
 
 type SidebarProps = {
@@ -13,9 +15,10 @@ type SidebarProps = {
 
 const Sidebar = ({ categories }: SidebarProps) => {
   const { isOpen, close } = useSidebar();
+  const { activeCategorySlug } = useActiveCategory();
+  const pathname = usePathname();
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  // Lock body scroll while the sidebar is open
   useEffect(() => {
     if (!isOpen) return;
     const original = document.body.style.overflow;
@@ -25,7 +28,6 @@ const Sidebar = ({ categories }: SidebarProps) => {
     };
   }, [isOpen]);
 
-  // Close on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     window.addEventListener("keydown", onKey);
@@ -34,6 +36,22 @@ const Sidebar = ({ categories }: SidebarProps) => {
 
   const toggleExpanded = (id: string) =>
     setExpandedId((current) => (current === id ? null : id));
+
+  const isActive = (categorySlug: string) => {
+    if (pathname === `/category/${categorySlug}`) return true;
+    if (activeCategorySlug === categorySlug) return true;
+    return false;
+  };
+
+  const linkClass = (active: boolean) =>
+    `block flex-1 rounded-md px-3 py-2.5 text-sm font-semibold transition hover:bg-[var(--background-muted)] hover:text-accent ${
+      active ? "!text-[var(--accent)]" : "text-foreground"
+    }`;
+
+  const subLinkClass = (active: boolean) =>
+    `block rounded-md px-3 py-2 text-sm transition hover:bg-[var(--background-muted)] hover:text-accent ${
+      active ? "font-semibold !text-[var(--accent)]" : "text-muted"
+    }`;
 
   return (
     <>
@@ -78,7 +96,9 @@ const Sidebar = ({ categories }: SidebarProps) => {
               <Link
                 href="/"
                 onClick={close}
-                className="block rounded-md px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-[var(--background-muted)] hover:text-accent"
+                className={`block rounded-md px-3 py-2.5 text-sm font-semibold transition hover:bg-[var(--background-muted)] hover:text-accent ${
+                  pathname === "/" ? "!text-[var(--accent)]" : "text-foreground"
+                }`}
               >
                 Home
               </Link>
@@ -88,6 +108,7 @@ const Sidebar = ({ categories }: SidebarProps) => {
               const subcategories = category.subcategories ?? [];
               const hasChildren = subcategories.length > 0;
               const isExpanded = expandedId === String(category.id);
+              const active = isActive(category.slug);
 
               return (
                 <li
@@ -98,7 +119,7 @@ const Sidebar = ({ categories }: SidebarProps) => {
                     <Link
                       href={`/category/${category.slug}`}
                       onClick={close}
-                      className="block flex-1 rounded-md px-3 py-2.5 text-sm font-semibold text-foreground transition hover:bg-[var(--background-muted)] hover:text-accent"
+                      className={linkClass(active)}
                     >
                       {category.name}
                     </Link>
@@ -132,7 +153,7 @@ const Sidebar = ({ categories }: SidebarProps) => {
                               <Link
                                 href={`/category/${sub.slug}`}
                                 onClick={close}
-                                className="block rounded-md px-3 py-2 text-sm text-muted transition hover:bg-[var(--background-muted)] hover:text-accent"
+                                className={subLinkClass(isActive(sub.slug))}
                               >
                                 {sub.name}
                               </Link>
