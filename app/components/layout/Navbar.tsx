@@ -29,12 +29,12 @@ const Navbar = ({ categories }: NavbarProps) => {
   };
 
   const linkTextClass = (href: string, categorySlug?: string) =>
-    `text-sm font-semibold transition-colors hover:text-accent ${
+    `text-sm font-semibold transition-colors hover:!text-accent  ${
       isLinkActive(href, categorySlug) ? "!text-accent" : "text-foreground"
     }`;
 
   const liClass = (href: string, categorySlug?: string) =>
-    `flex h-full items-center border-t-2 px-3 transition-colors ${
+    `flex h-full items-center border-t-2 px-3 transition-colors hover:border-accent hover:bg-[var(--background)] transition-all duration-600 ${
       isLinkActive(href, categorySlug) ? "border-accent bg-[var(--background)]" : "border-transparent"
     }`;
 
