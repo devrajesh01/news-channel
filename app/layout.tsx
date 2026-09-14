@@ -6,11 +6,11 @@ import Footer from "./components/layout/Footer";
 import { getCategories } from "./lib/api/posts";
 import FloatingThemeToggle from "./components/theme/FloatingThemeToggle";
 import { ScrollTopButton } from "./lib/utils/ScrollTopButton";
+import { ActiveCategoryProvider } from "./components/layout/ActiveCategoryProvider";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-
 });
 
 const newsreader = Newsreader({
@@ -20,16 +20,18 @@ const newsreader = Newsreader({
 export const metadata: Metadata = {
   title: {
     default: "NewsWala",
-    template: "%s | NewsWala"
+    template: "%s | NewsWala",
   },
-  description: "NewsWala is your fast-track digital news platform, delivering real-time, unbiased, and easy-to-digest coverage of current events, technology, trends, and public stories.",
+  description:
+    "NewsWala is your fast-track digital news platform, delivering real-time, unbiased, and easy-to-digest coverage of current events, technology, trends, and public stories.",
   metadataBase: new URL("https://news-channel-phi.vercel.app"),
-  icons:{
-    icon: "/images/favicon.png"
+  icons: {
+    icon: "/images/favicon.png",
   },
   openGraph: {
     title: "NewsWala",
-    description: "NewsWala is your fast-track digital news platform, delivering real-time, unbiased, and easy-to-digest coverage of current events, technology, trends, and public stories.",
+    description:
+      "NewsWala is your fast-track digital news platform, delivering real-time, unbiased, and easy-to-digest coverage of current events, technology, trends, and public stories.",
     url: "https://news-channel-phi.vercel.app",
     siteName: "NewsWala",
     images: [
@@ -42,17 +44,19 @@ export const metadata: Metadata = {
     ],
   },
 };
-export default  function RootLayout({
+export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) { 
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${newsreader.variable}`}>
-       <Header />
-        <main>{children}</main>
-        <Footer />
-        <FloatingThemeToggle/>
-        <ScrollTopButton/>
+        <ActiveCategoryProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <FloatingThemeToggle />
+          <ScrollTopButton />
+        </ActiveCategoryProvider>
       </body>
     </html>
   );

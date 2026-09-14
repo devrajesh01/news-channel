@@ -24,6 +24,7 @@ import ShareButtons from "@/app/components/services/share/ShareButtons";
 import PostNavigation from "@/app/components/news/PostNavigation";
 import PostContent from "@/app/components/news/PostContent";
 import CommentList from "@/app/components/services/comments/CommentList";
+import SetActiveCategory from "@/app/components/news/SetActiveCategory";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -75,6 +76,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
   return (
     <div className="site-container mx-auto grid grid-cols-1 py-4 gap-10 lg:grid-cols-[1fr_320px]">
+      <SetActiveCategory slug={post.category.toLocaleLowerCase()} />
       <div>
         <article className="">
           <Breadcrumb
