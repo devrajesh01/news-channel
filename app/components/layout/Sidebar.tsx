@@ -65,7 +65,7 @@ const Sidebar = ({ categories }: SidebarProps) => {
       />
 
       {/* Panel */}
-      <aside
+      <div
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
@@ -168,7 +168,7 @@ const Sidebar = ({ categories }: SidebarProps) => {
             })}
           </ul>
         </nav>
-      </aside>
+      </div>
     </>
   );
 };
